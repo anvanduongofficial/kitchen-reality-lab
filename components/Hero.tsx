@@ -12,8 +12,8 @@ export default function Hero() {
       </p>
 
       <p className="mt-4 text-sm text-[#8E8E8E] leading-relaxed">
-        A breakdown of silent mistakes ruining your cooking —
-        even when you do everything “right”.
+        A breakdown of silent mistakes ruining your cooking — even when you do
+        everything right.
       </p>
     </section>
   );
