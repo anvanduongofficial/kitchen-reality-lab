@@ -2,42 +2,49 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
+    const body = await req.json();
+    const email = body?.email;
 
-    if (!email) {
+    // Validate email
+    if (!email || typeof email !== "string") {
       return NextResponse.json(
-        { success: false, error: "Missing email" },
+        { success: false, error: "Invalid email" },
         { status: 400 }
       );
     }
 
-    const res = await fetch("https://api.brevo.com/v3/contacts", {
+    // Prepare request to Brevo API
+    const brevoRes = await fetch("https://api.brevo.com/v3/contacts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "api-key": process.env.BREVO_API_KEY!,
+        "Accept": "application/json",
+        "api-key": process.env.BREVO_API_KEY as string,
       },
       body: JSON.stringify({
         email,
         listIds: [Number(process.env.BREVO_LIST_ID)],
-        updateEnabled: true,
+        updateEnabled: true, // update if exists
       }),
     });
 
-    if (!res.ok) {
-      const err = await res.text();
-      console.error("Brevo error:", err);
+    // If Brevo returns not OK status
+    if (!brevoRes.ok) {
+      const errData = await brevoRes.json().catch(() => null);
+      console.error("Brevo API error:", errData);
+
       return NextResponse.json(
-        { success: false },
-        { status: 500 }
+        { success: false, error: errData },
+        { status: brevoRes.status }
       );
     }
 
+    // Success
     return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error("Subscribe route error:", error);
     return NextResponse.json(
-      { success: false },
+      { success: false, error: "Internal server error" },
       { status: 500 }
     );
   }

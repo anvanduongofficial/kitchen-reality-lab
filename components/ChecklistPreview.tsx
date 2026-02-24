@@ -7,7 +7,7 @@ const rules = [
   {
     id: "02",
     title: "Treating Heat as Fixed",
-    rule: "Heat is a variable.",
+    rule: "Heat isn’t a setting. It’s a variable that changes everything.",
   },
   {
     id: "03",

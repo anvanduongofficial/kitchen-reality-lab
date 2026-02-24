@@ -34,7 +34,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         <p className="text-xs text-[#8E8E8E] tracking-widest">FREE PDF</p>
 
         <h2 className="mt-2 text-[#0B0B0C] text-xl font-semibold">
-          Get the complete checklist.
+          Download the free PDF and start cooking with logic - not guesswork.
         </h2>
 
         <p className="mt-2 text-sm text-[#5F5F5F]">
@@ -56,7 +56,7 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
             type="submit"
             className="w-full rounded-xl bg-[#0B0B0C] py-3 text-sm font-semibold text-white active:scale-[0.99]"
           >
-            {loading ? "Sending…" : "Get the 7 Reality Rules"}
+            {loading ? "Sending…" : "Send Me the Checklist"}
           </button>
         </form>
       </div>
